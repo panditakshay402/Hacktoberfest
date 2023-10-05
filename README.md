@@ -1,8 +1,6 @@
 # Hacktoberfest2023
 Join the Hacktoberfest 2023 fun! Contribute to this repo 🚀 and earn cool swag 😎 while improving open-source projects. 🌟
-# Hacktoberfest 2023
 
-Welcome to the Hacktoberfest 2023 repository! 🎉
 
 ## About Hacktoberfest
 Hacktoberfest is a month-long celebration of open source software in October. It's a great opportunity for developers of all skill levels to contribute to open source projects and earn cool swag!
