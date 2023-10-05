@@ -1,56 +1,32 @@
-// Breadth-First Search (BFS) is a graph traversal algorithm that explores all the vertices of a graph in breadthward motion, i.e., it explores all the vertices at the current level before moving on to the vertices at the next level. BFS is typically used to find the shortest path from a source vertex to all other vertices in an unweighted graph. It can also be used to solve various graph-related problems.
+//GitHub Copilot: BFS stands for Breadth First Search. It is a graph traversal algorithm that visits all the vertices of a graph in breadth-first order, i.e., it visits all the vertices at the same level before moving on to the next level. BFS is implemented using a queue data structure.
 
-// Here's a step-by-step explanation of the BFS algorithm, followed by a C++ code implementation for an unweighted graph:
+//The algorithm starts at a given vertex (usually the root) and explores all the vertices at the current level before moving on to the next level. It maintains a queue of vertices that are yet to be explored. The algorithm dequeues a vertex from the queue, explores all its neighbors, and enqueues any unexplored neighbors. This process continues until all the vertices have been explored.
 
-// BFS Algorithm Explanation:
+//BFS is useful for finding the shortest path between two vertices in an unweighted graph. It can also be used to detect cycles in a graph and to check if a graph is bipartite.
 
-// Create a queue (usually implemented using a data structure like std::queue in C++).
-// Start from the source vertex and enqueue it into the queue.
-// Mark the source vertex as visited.
-// While the queue is not empty, do the following:
-// a. Dequeue a vertex from the front of the queue (let's call it the current vertex).
-// b. Visit the current vertex (print it or process it as needed).
-// c. For each adjacent vertex of the current vertex that has not been visited yet, enqueue it into the queue and mark it as visited.
-// The process continues until the queue is empty, which means all reachable vertices have been visited.
+//In the code provided, the BFS algorithm is implemented using an adjacency list to represent the graph and a boolean array to keep track of visited nodes. The algorithm starts at node 0 and explores all the nodes reachable from it using the BFS traversal. The output of the algorithm is the order in which the nodes are visited.
+
 #include <iostream>
-#include <vector>
 #include <queue>
+#include <vector>
 
 using namespace std;
 
-class Graph {
-public:
-    Graph(int numVertices);
-    void addEdge(int v, int w);
-    void BFS(int startVertex);
-
-private:
-    int numVertices;
-    vector<vector<int>> adjacencyList;
-};
-
-Graph::Graph(int numVertices) {
-    this->numVertices = numVertices;
-    adjacencyList.resize(numVertices);
-}
-
-void Graph::addEdge(int v, int w) {
-    adjacencyList[v].push_back(w);
-}
-
-void Graph::BFS(int startVertex) {
-    vector<bool> visited(numVertices, false);
+// Function to perform Breadth First Search (BFS) traversal on a graph
+void bfs(vector<int> adj[], int start, bool visited[]) {
     queue<int> q;
+    visited[start] = true;
+    q.push(start);
 
-    visited[startVertex] = true;
-    q.push(startVertex);
-
+    // Loop until all nodes in the graph have been visited
     while (!q.empty()) {
-        int currentVertex = q.front();
-        cout << currentVertex << " ";
+        int curr = q.front();
         q.pop();
+        cout << curr << " "; // Print the current node
 
-        for (int neighbor : adjacencyList[currentVertex]) {
+        // Visit all neighbors of the current node
+        for (int i = 0; i < adj[curr].size(); i++) {
+            int neighbor = adj[curr][i];
             if (!visited[neighbor]) {
                 visited[neighbor] = true;
                 q.push(neighbor);
@@ -60,17 +36,21 @@ void Graph::BFS(int startVertex) {
 }
 
 int main() {
-    Graph g(8);
-    g.addEdge(0, 1);
-    g.addEdge(0, 2);
-    g.addEdge(1, 3);
-    g.addEdge(1, 4);
-    g.addEdge(2, 5);
-    g.addEdge(2, 6);
-    g.addEdge(3, 7);
+    int n, m;
+    cin >> n >> m;
 
-    cout << "BFS starting from vertex 0: ";
-    g.BFS(0);
+    vector<int> adj[n]; // Create an adjacency list to represent the graph
+    bool visited[n] = {false}; // Create an array to keep track of visited nodes
+
+    // Read in the edges of the graph
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v); // Add edge from u to v
+        adj[v].push_back(u); // Add edge from v to u
+    }
+
+    bfs(adj, 0, visited); // Perform BFS traversal starting from node 0
 
     return 0;
 }
