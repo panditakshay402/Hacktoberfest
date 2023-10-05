@@ -1,4 +1,4 @@
-//GitHub Copilot: BFS stands for Breadth First Search. It is a graph traversal algorithm that visits all the vertices of a graph in breadth-first order, i.e., it visits all the vertices at the same level before moving on to the next level. BFS is implemented using a queue data structure.
+//BFS stands for Breadth First Search. It is a graph traversal algorithm that visits all the vertices of a graph in breadth-first order, i.e., it visits all the vertices at the same level before moving on to the next level. BFS is implemented using a queue data structure.
 
 //The algorithm starts at a given vertex (usually the root) and explores all the vertices at the current level before moving on to the next level. It maintains a queue of vertices that are yet to be explored. The algorithm dequeues a vertex from the queue, explores all its neighbors, and enqueues any unexplored neighbors. This process continues until all the vertices have been explored.
 
