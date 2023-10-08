@@ -6,6 +6,7 @@ Join the Hacktoberfest 2023 fun! Contribute to this repo 🚀 and earn cool swag
 Hacktoberfest is a month-long celebration of open source software in October. It's a great opportunity for developers of all skill levels to contribute to open source projects and earn cool swag!
 
 ## How to Participate
+0. Follow Me !
 1. MUST Fork and star⭐ this repository.
 2. Clone the forked repository to your local machine.
 3. Create a new branch for your contributions.
