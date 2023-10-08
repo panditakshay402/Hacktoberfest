@@ -1,38 +1,25 @@
-                                           //JAI SHRI GANESH
-#include <bits/stdc++.h>
+
+#include<bits/stdc++.h>
 using namespace std;
-#define ll long long
-#define mod ((1e7)+9)                   
-#define vl vector<ll>
-#define vvl vector<vector<ll>>
- void func(int n, string s)
- {
-   if(n<=0)
-   return;
-   else
-   {
-       cout<<s<<endl;;
-       func(n-1,s);
-   }
- }
-void solve()
-{
-    int n;
-    cin>>n;
-    string s;
-    cin>>s;
-    func(n,s);
+
+void func(int i, int n){
+   
+   // Base Condition.
+   if(i>n) return;
+   cout<<"Raj"<<endl;
+
+   // Function call to print till i increments.
+   func(i+1,n);
+
 }
-signed main()
-{
-   ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
-//   #ifndef ONLINE_JUDGE
-//   freopen("input.txt", "r", stdin);
-//   freopen("output.txt", "w", stdout);
-//   #endif
-{
-   solve();
-}
+
+int main(){
+  
+  // Here, let’s take the value of n to be 4.
+  int n = 4;
+  func(1,n);
+  return 0;
+
 }
 
 
