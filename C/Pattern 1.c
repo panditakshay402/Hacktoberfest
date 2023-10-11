@@ -20,7 +20,10 @@ int main() {
   return 0;
 }
 
-OUTPUT:
+
+/* 
+
+OUTPUT
  
 Enter no. of rows: 5
 *****
@@ -28,3 +31,7 @@ Enter no. of rows: 5
 *****
 *****
 *****
+
+
+*/
+
