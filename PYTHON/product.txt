@@ -1,0 +1,6 @@
+Product name = Headphones
+Brand name = BOAT
+Price = 1280
+Quantity = 2
+Total  = 2560
+
