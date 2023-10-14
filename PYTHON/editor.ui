@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>896</width>
+    <height>618</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QPlainTextEdit" name="plainTextEdit">
+      <property name="font">
+       <font>
+        <family>Tahoma</family>
+       </font>
+      </property>
+      <property name="lineWrapMode">
+       <enum>QPlainTextEdit::NoWrap</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>896</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMenu">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionClose"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <widget class="QMenu" name="menuFont_size">
+     <property name="title">
+      <string>Text Size</string>
+     </property>
+     <addaction name="action10pt"/>
+     <addaction name="action12pt"/>
+     <addaction name="action14pt"/>
+     <addaction name="action16pt"/>
+     <addaction name="action18pt"/>
+     <addaction name="action24pt"/>
+     <addaction name="action30pt"/>
+    </widget>
+    <addaction name="menuFont_size"/>
+   </widget>
+   <addaction name="menuMenu"/>
+   <addaction name="menuView"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionSave_as">
+   <property name="text">
+    <string>Save as</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="action10pt">
+   <property name="text">
+    <string>10pt</string>
+   </property>
+  </action>
+  <action name="action12pt">
+   <property name="text">
+    <string>12pt</string>
+   </property>
+  </action>
+  <action name="action14pt">
+   <property name="text">
+    <string>14pt</string>
+   </property>
+  </action>
+  <action name="action16pt">
+   <property name="text">
+    <string>16pt</string>
+   </property>
+  </action>
+  <action name="action18pt">
+   <property name="text">
+    <string>18pt</string>
+   </property>
+  </action>
+  <action name="action24pt">
+   <property name="text">
+    <string>24pt</string>
+   </property>
+  </action>
+  <action name="action30pt">
+   <property name="text">
+    <string>30pt</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
