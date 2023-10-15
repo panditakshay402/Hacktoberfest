@@ -11,9 +11,13 @@ Before you start contributing, please take a moment to read our [README](README.
 
 We welcome contributions in the form of bug reports, feature requests, documentation improvements, code enhancements, and more. To get started, follow these steps:
 
-1. **Fork the Repository:** Click the "Fork" button on the top right corner of this repository's page, and clone your forked repository to your local machine.
+## INSTRUCTIONS-
 
-2. **Create a New Branch:** Create a new branch for your contribution. Choose a descriptive name that indicates the purpose of your changes.
+- Fork this Repository using the button at the top on right corner.
+- Clone your forked repository to your pc ( git clone "url from clone option.)
+- Create a new branch for your modifications (ie. `git branch new-user` and check it out `git checkout new-user` or simply do `git checkout -b new-user`)
+- Add your files (`git add -A`), commit (`git commit -m "added myself"`) and push (`git push origin new-user`)
+- Create a pull request
+- Star this repository
 
-   ```bash
-   git checkout -b feature/your-feature-name
+##  Wait for Pull Request to merge
