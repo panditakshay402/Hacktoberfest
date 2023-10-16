@@ -1,0 +1,81 @@
+//Link: https://codeforces.com/contest/1851/problem/E
+
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+int main() {
+    int num_test_cases;
+    cin >> num_test_cases;
+
+    while (num_test_cases--) {
+        ll num_potions, num_available_potions;
+        
+        // Input: Number of total potions and number of available potions
+        cin >> num_potions >> num_available_potions;
+        
+        vector<ll> potion_costs(num_potions + 1);
+        vector<ll> available_potions(num_potions + 1, 0);
+        vector<ll> final_costs(num_potions + 1, 0);
+        
+        // Input: Costs of all potions
+        for (ll i = 1; i <= num_potions; i++) {
+            cin >> potion_costs[i];
+        }
+        
+        vector<ll> available_potion_indices(num_available_potions);
+        
+        // Input: Indices of available potions and mark them as available
+        for (ll i = 0; i < num_available_potions; i++) {
+            cin >> available_potion_indices[i];
+            available_potions[available_potion_indices[i]] = 1;
+            potion_costs[available_potion_indices[i]] = 0;
+        }
+        
+        vector<ll> temporary_costs(num_potions + 1, 0);
+        vector<ll> ingredient_count(num_potions + 1, 0);
+        vector<vector<ll>> potion_dependency(num_potions + 1);
+        queue<ll> zero_indegree_potions;
+
+        for (ll i = 1; i <= num_potions; i++) {
+            ll num_ingredients;
+            
+            // Input: Number of ingredients and their indices for each potion
+            cin >> num_ingredients;
+            ingredient_count[i] = num_ingredients;
+
+            if (num_ingredients == 0) {
+                zero_indegree_potions.push(i);
+            }
+
+            for (ll j = 0; j < num_ingredients; j++) {
+                ll ingredient_index;
+                cin >> ingredient_index;
+                potion_dependency[ingredient_index].push_back(i);
+            }
+        }
+
+        // Topological sort and cost calculation
+        while (!zero_indegree_potions.empty()) {
+            ll potion_index = zero_indegree_potions.front();
+            zero_indegree_potions.pop();
+            
+            for (auto dependent_potion_index : potion_dependency[potion_index]) {
+                temporary_costs[dependent_potion_index] += potion_costs[potion_index];
+
+                if (--ingredient_count[dependent_potion_index] == 0) {
+                    potion_costs[dependent_potion_index] = min(potion_costs[dependent_potion_index], temporary_costs[dependent_potion_index]);
+                    zero_indegree_potions.push(dependent_potion_index);
+                }
+            }
+        }
+
+        // Output: Minimum costs for each potion type
+        for (ll i = 1; i <= num_potions; i++) {
+            cout << potion_costs[i] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
