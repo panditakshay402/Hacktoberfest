@@ -1,5 +1,4 @@
-// Designed by Abhinav Singh (inspired online)
-// Date:- 20 April,2022
+
 #include <iostream>
 using namespace std;
 void board();
