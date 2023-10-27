@@ -11,12 +11,12 @@ int main(){
     cin >> side1;
     
     // taking user input, side 2
-    cout << "Enter side 1: ";
-    cin >> side1;
+    cout << "Enter side 2: ";
+    cin >> side2;
 
     // taking user input, side 3
-    cout << "Enter side 1: ";
-    cin >> side1;
+    cout << "Enter side 3: ";
+    cin >> side3;
 
     if ((side1 == side2) && (side2 == side3))
         cout << "The triangle is Equilateral\n";
