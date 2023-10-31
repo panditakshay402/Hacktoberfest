@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ShellSort",
+      "request": "launch",
+      "mainClass": "SortingAlgorithms.ShellSort",
+      "projectName": "Hacktoberfest_2023_c58c2023"
+    },
+    {
+      "type": "java",
+      "name": "ShellSort",
+      "request": "launch",
+      "mainClass": "ShellSort",
+      "projectName": "Hacktoberfest_2023_c58c2023"
+    },
+    {
+      "type": "java",
       "name": "LinkedList",
       "request": "launch",
       "mainClass": "LinkedList.LinkedList",
