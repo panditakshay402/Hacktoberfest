@@ -1,5 +1,5 @@
-# Hacktoberfest2023
-Join the Hacktoberfest 2023 fun! Contribute to this repo  and earn cool swag  while improving open-source projects. 
+# Hacktoberfest
+Join the Hacktoberfest  fun! Contribute to this repo  and earn cool swag  while improving open-source projects. 
 
 
 ## About Hacktoberfest
