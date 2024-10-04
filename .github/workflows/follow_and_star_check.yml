@@ -1,0 +1,71 @@
+name: PR Follow and Star Check
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  check-follow-and-star:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Check if user is following
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const github = require('@actions/github/lib/github');
+            const context = require('@actions/github/lib/context');
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const prAuthor = context.payload.pull_request.user.login;
+
+            return github.rest.users.checkFollowing({
+              username: prAuthor,
+              user: owner
+            });
+      - name: Check if user has starred the repository
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const github = require('@actions/github/lib/github');
+            const context = require('@actions/github/lib/context');
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const prAuthor = context.payload.pull_request.user.login;
+
+            return github.rest.repos.checkStar({
+              owner: owner,
+              repo: repo,
+              username: prAuthor
+            });
+      - name: Set check status based on results
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const github = require('@actions/github/lib/github');
+            const context = require('@actions/github/lib/context');
+
+            const isFollowing = context.steps.check-follow-and-star.outputs.result;
+            const hasStarred = context.steps.check-follow-and-star.outputs.result;
+
+            if (isFollowing && hasStarred) {
+              github.rest.checks.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'Follow and Star Check',
+                status: 'success',
+                conclusion: 'Success: User is following and has starred the repository.'
+              });
+            } else {
+              github.rest.checks.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'Follow and Star Check',
+                status: 'failure',
+                conclusion: 'Failure: User must follow and star the repository to proceed.'
+              });
+            }
