@@ -42,7 +42,7 @@ jobs:
               repo: repo,
               username: prAuthor
             });
-      - name: Set check status based on results
+      - name: Set check status and leave comment
         uses: actions/github-script@v6
         with:
           script: |
@@ -67,5 +67,12 @@ jobs:
                 name: 'Follow and Star Check',
                 status: 'failure',
                 conclusion: 'Failure: User must follow and star the repository to proceed.'
+              });
+
+              github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                body: 'Please follow and star the repository to proceed with your pull request.'
               });
             }
