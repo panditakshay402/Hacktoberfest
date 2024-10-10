@@ -5,7 +5,7 @@ Join the Hacktoberfest  fun! Contribute to this repo  and earn cool swag  while 
 ## About Hacktoberfest
 Hacktoberfest is a month-long celebration of open source software in October. It's a great opportunity for developers of all skill levels to contribute to open source projects and earn cool swag!
 
-## How to Participate
+## Rules
 
 1. Follow User! and star⭐ this repository.
 2. Clone the forked repository to your local machine.
