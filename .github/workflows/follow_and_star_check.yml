@@ -12,64 +12,80 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Check if user is following
+        id: check-follow
         uses: actions/github-script@v6
         with:
           script: |
-            const github = require('@actions/github/lib/github');
-            const context = require('@actions/github/lib/context');
+            const { github, context } = require('@actions/github');
 
             const owner = context.repo.owner;
-            const repo = context.repo.repo;
             const prAuthor = context.payload.pull_request.user.login;
 
-            return github.rest.users.checkFollowing({
+            const result = await github.rest.users.checkFollowing({
               username: prAuthor,
-              user: owner
+              target_user: owner
             });
+            return result.data;
+
       - name: Check if user has starred the repository
+        id: check-star
         uses: actions/github-script@v6
         with:
           script: |
-            const github = require('@actions/github/lib/github');
-            const context = require('@actions/github/lib/context');
+            const { github, context } = require('@actions/github');
 
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const prAuthor = context.payload.pull_request.user.login;
 
-            return github.rest.repos.checkStar({
-              owner: owner,
-              repo: repo,
-              username: prAuthor
-            });
+            try {
+              const result = await github.rest.activity.getRepoSubscription({
+                owner: owner,
+                repo: repo,
+                username: prAuthor
+              });
+              return result.data.subscribed;
+            } catch (error) {
+              return false;  // User hasn't starred the repo
+            }
+
       - name: Set check status and leave comment
         uses: actions/github-script@v6
         with:
           script: |
-            const github = require('@actions/github/lib/github');
-            const context = require('@actions/github/lib/context');
+            const { github, context } = require('@actions/github');
 
-            const isFollowing = context.steps.check-follow-and-star.outputs.result;
-            const hasStarred = context.steps.check-follow-and-star.outputs.result;
+            const isFollowing = steps['check-follow'].outputs.result;
+            const hasStarred = steps['check-star'].outputs.result;
 
             if (isFollowing && hasStarred) {
-              github.rest.checks.create({
+              await github.rest.checks.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 name: 'Follow and Star Check',
-                status: 'success',
-                conclusion: 'Success: User is following and has starred the repository.'
+                head_sha: context.payload.pull_request.head.sha,
+                status: 'completed',
+                conclusion: 'success',
+                output: {
+                  title: 'Success',
+                  summary: 'User is following and has starred the repository.'
+                }
               });
             } else {
-              github.rest.checks.create({
+              await github.rest.checks.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 name: 'Follow and Star Check',
-                status: 'failure',
-                conclusion: 'Failure: User must follow and star the repository to proceed.'
+                head_sha: context.payload.pull_request.head.sha,
+                status: 'completed',
+                conclusion: 'failure',
+                output: {
+                  title: 'Failure',
+                  summary: 'User must follow and star the repository to proceed.'
+                }
               });
 
-              github.rest.issues.createComment({
+              await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.payload.pull_request.number,
