@@ -1,0 +1,116 @@
+import java.util.*;
+
+class Node {
+    public final String name;
+    public final Map<Node, Integer> neighbors;
+    public int gCost; // Cost from start to this node
+    public int hCost; // Heuristic cost to goal
+    public Node parent;
+
+    public Node(String name) {
+        this.name = name;
+        this.neighbors = new HashMap<>();
+    }
+
+    public int getFCost() {
+        return gCost + hCost;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+}
+
+public class AStarAlgorithm {
+    private final List<Node> openSet;
+    private final Set<Node> closedSet;
+
+    public AStarAlgorithm() {
+        openSet = new ArrayList<>();
+        closedSet = new HashSet<>();
+    }
+
+    public List<Node> findPath(Node start, Node goal) {
+        openSet.add(start);
+
+        while (!openSet.isEmpty()) {
+            Node current = getLowestFCostNode(openSet);
+
+            if (current.equals(goal)) {
+                return reconstructPath(goal);
+            }
+
+            openSet.remove(current);
+            closedSet.add(current);
+
+            for (Map.Entry<Node, Integer> neighborEntry : current.neighbors.entrySet()) {
+                Node neighbor = neighborEntry.getKey();
+                int cost = neighborEntry.getValue();
+
+                if (closedSet.contains(neighbor)) {
+                    continue; // Ignore the neighbor that is already evaluated
+                }
+
+                int tentativeGCost = current.gCost + cost;
+                if (tentativeGCost < neighbor.gCost || !openSet.contains(neighbor)) {
+                    neighbor.gCost = tentativeGCost;
+                    neighbor.hCost = heuristic(neighbor, goal);
+                    neighbor.parent = current;
+
+                    if (!openSet.contains(neighbor)) {
+                        openSet.add(neighbor);
+                    }
+                }
+            }
+        }
+
+        return Collections.emptyList(); // Return an empty path if no path found
+    }
+
+    private Node getLowestFCostNode(List<Node> openSet) {
+        Node lowest = openSet.get(0);
+        for (Node node : openSet) {
+            if (node.getFCost() < lowest.getFCost()) {
+                lowest = node;
+            }
+        }
+        return lowest;
+    }
+
+    private int heuristic(Node a, Node b) {
+        // Here you can implement a heuristic function. For simplicity, we use a constant.
+        return 1; // Replace with a real heuristic for better performance
+    }
+
+    private List<Node> reconstructPath(Node goal) {
+        List<Node> path = new ArrayList<>();
+        for (Node node = goal; node != null; node = node.parent) {
+            path.add(node);
+        }
+        Collections.reverse(path);
+        return path;
+    }
+
+    public static void main(String[] args) {
+        Node a = new Node("A");
+        Node b = new Node("B");
+        Node c = new Node("C");
+        Node d = new Node("D");
+        Node e = new Node("E");
+        Node f = new Node("F");
+
+        a.neighbors.put(b, 1);
+        a.neighbors.put(c, 4);
+        b.neighbors.put(c, 2);
+        b.neighbors.put(d, 5);
+        c.neighbors.put(e, 3);
+        d.neighbors.put(e, 1);
+        e.neighbors.put(f, 1);
+
+        AStarAlgorithm aStar = new AStarAlgorithm();
+        List<Node> path = aStar.findPath(a, f);
+
+        System.out.println("Path found: " + path);
+    }
+}
