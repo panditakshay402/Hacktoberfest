@@ -1,0 +1,18 @@
+body{
+    background-image: url(https://www.shutterstock.com/shutterstock/videos/1102153557/thumb/1.jpg?ip=x480);
+    background-size: 120% 115%;
+    background-attachment: fixed;
+    
+
+}
+h1{
+    text-align: center;
+    /* font-family: 'Times New Roman', Times, serif; */
+    color: #080619;
+    background-color: rgba(0, 110, 255, 0.668);
+    margin-inline-start: 350px;
+    margin-inline-end: 350px;
+    border-radius: 10px;
+    font-style: italic;
+
+}
