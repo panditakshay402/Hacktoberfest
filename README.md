@@ -24,8 +24,6 @@ Hacktoberfest is a month-long celebration of open source software in October. It
 ## Get Started
 Ready to contribute? Start by forking and cloning this repository!
 
-## Happy Hacking! 🚀
-We're excited to have you join us for Hacktoberfest 2023! Happy hacking, and don't forget to have fun while contributing to open source!
 
 ## Resources
 - [Hacktoberfest Official Website](https://hacktoberfest.digitalocean.com/)
