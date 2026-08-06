@@ -8,11 +8,15 @@ class Node {
     int data;
     Node* next;
 
-    //constructor
+    //constructors
+    Node() : data(0), next(NULL) {}
+
     Node(int data) {
         this -> data = data;
         this -> next = NULL;
     }
+
+    Node(int data, Node* next) : data(data), next(next) {}
 
     //destructor
     ~Node() {
@@ -222,6 +226,53 @@ void removeLoop(Node* head) {
 
 }
 
+// Given the head of a singly linked list, A program to reverse the linked list, and return the head pointer to the reversed list.
+
+Node* reverseList(Node* &head) {
+
+    if (head == NULL || head->next==NULL)
+        return head;
+
+    Node* new_node = reverseList(head->next);
+    head->next->next = head;
+    head->next = NULL;
+    return new_node;
+}
+
+// Given the head of a singly linked list, Returning the middle node of the linked list. If there are two middle nodes, Returning the second middle node.
+
+Node* middleNode(Node* head) {
+    Node* slow = head;
+    Node* fast = head;
+    while (fast && fast->next){
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+        
+    return slow;
+}
+
+//Remove N-th node from the end of a Linked List
+Node* removeNthFromEnd(Node* head, int n) {
+    Node* start = new Node();
+    start -> next = head;
+    Node* fast = start;
+    Node* slow = start;     
+
+    for(int i = 1; i <= n; ++i)
+        fast = fast->next;
+
+    while(fast->next != NULL)
+    {
+        fast = fast->next;
+        slow = slow->next;
+    }
+    
+    slow->next = slow->next->next;
+    
+    return start->next;
+}
+
 
 int main() {
     
@@ -282,6 +333,21 @@ int main() {
         cout << "Linked List is not Circular " << endl;
     }
     */
+
+    Node* reversed_head = reverseList(head);
+    cout << "The Reverse of the Linked list is: ";
+    print(reversed_head);
+    cout << endl;
+
+    cout << "The middle of the Linked List is: ";
+    Node* mid_Node = middleNode(head);
+    cout << mid_Node->data << endl;
+
+    int n = 1; // n could be anything
+    cout << "Linked List with N-th node from the end of a Linked List removed: ";
+    Node* nthRemovedFromEndList = removeNthFromEnd(head, n);
+    print(nthRemovedFromEndList);
+    cout << endl;
 
 
     return 0;
